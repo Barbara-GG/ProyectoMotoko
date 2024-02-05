@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .upload-section input[type="file"] {
+            display: none;
+        }
+        .upload-section label {
+            background-color: #4CAF50;
+            color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .upload-section label:hover {
+            background-color: #3E8E41;
+        }
+        .preview-section {
+            display: none;
+            text-align: center;
+        }
+        .preview-section img {
+            max-width: 400px;
+            width: 100%;
+        }
+        .email-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .email-section input[type="email"] {
+            width: 100%;
+            padding: 10px;
+        }
+        .email-section button {
+            background-color: #007BFF;
+            color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .email-section button:hover {
+            background-color: #0069D9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Image Gallery</h1>
+        <p>Upload your photos and send them by email.</p>
+        <div class="upload-section">
+            <label for="file-input">Upload your photo</label>
+            <input type="file" id="file-input" onchange="uploadImage(this)">
+        </div>
+        <div class="preview-section">
+            <h2>Preview</h2>
+            <img id="preview-image">
+        </div>
+        <div class="email-section">
+            <h2>Send by email</h2>
+            <input type="email" id="email-input" placeholder="Enter your email address">
+            <button onclick="sendImage()">Send</button>
+        </div>
+    </div>
+    <script>
+        function uploadImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview-image').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+                document.querySelector('.upload-section').style.display = 'none';
+                document.querySelector('.preview-section').style.display = 'block';
+            }
+        }
+        function sendImage() {
+            var image = document.getElementById('preview-image');
+            var email = document.getElementById('email-input').value;
+            // Implement email sending functionality here
+            console.log('Image:', image.src);
+            console.log('Email:', email);
+        }
+    </script>
+</body>
+</html>
